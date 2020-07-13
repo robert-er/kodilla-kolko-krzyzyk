@@ -8,15 +8,17 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Content content = new Content();
+        GameState.init(content);
 
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(Tile.getContent().createContent()));
+        primaryStage.setScene(new Scene(content.getRoot()));
         primaryStage.show();
     }
 
     enum type {
-        X, O;
+        X, O
     }
 
     public static void main(String[] args) {

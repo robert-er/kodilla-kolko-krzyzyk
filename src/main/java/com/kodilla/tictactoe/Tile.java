@@ -16,7 +16,6 @@ public class Tile extends StackPane {
     private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x-small.png"));
     private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o-small.png"));
     Game.type type;
-    static Content content = new Content();
 
     public Tile() {
         Rectangle border = new Rectangle(170, 180);
@@ -39,24 +38,16 @@ public class Tile extends StackPane {
                     return;
                 drawX();
                 turnX = false;
-                playable = content.checkState();
+                playable = GameState.getGameState().checkState();
                 isSelected = true;
-                //debug
-                System.out.println("turnX= " + turnX);
-                System.out.println("isSelected= " + isSelected);
-                System.out.println("playable= " + playable);
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 if (turnX)
                     return;
                 drawO();
                 turnX = true;
-                playable = content.checkState();
+                playable = GameState.getGameState().checkState();
                 isSelected = true;
-                //debug
-                System.out.println("turnX= " + turnX);
-                System.out.println("isSelected= " + isSelected);
-                System.out.println("playable= " + playable);
             }
 
         });
@@ -72,14 +63,6 @@ public class Tile extends StackPane {
 
     public double getCenterY() {
         return getTranslateY() + 90;
-    }
-
-    public static boolean isPlayable() {
-        return playable;
-    }
-
-    public static Content getContent() {
-        return content;
     }
 
     private void drawX() {
