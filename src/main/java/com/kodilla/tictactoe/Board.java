@@ -15,6 +15,11 @@ public class Board {
                 tile.setTranslateX(15 + (200 * j));
                 tile.setTranslateY(15 + (200 * i));
                 board[j][i] = tile;
+                System.out.println("j=" + j + " i=" + i);
+                System.out.println("tile.getCenterX()= " + tile.getCenterX());
+                System.out.println("tile.getCenterY()= " + tile.getCenterY());
+                System.out.println("tile.isSelected()= " + tile.isSelected());
+
             }
         }
     }

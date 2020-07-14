@@ -31,5 +31,8 @@ public class GameState {
         return true;
     }
 
+    public Content getContent() {
+        return content;
+    }
 }
 

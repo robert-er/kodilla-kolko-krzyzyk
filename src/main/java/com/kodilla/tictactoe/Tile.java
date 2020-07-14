@@ -8,14 +8,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.concurrent.TimeUnit;
+
 public class Tile extends StackPane {
 
-    private static boolean turnX = false;
+    private static boolean turnX = true;
+    private static boolean computerTurn = false;
     private static boolean playable = true;
     private boolean isSelected = false;
     private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x-small.png"));
     private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o-small.png"));
-    Game.type type;
+    private Game.type type;
 
     public Tile() {
         Rectangle border = new Rectangle(170, 180);
@@ -40,6 +43,12 @@ public class Tile extends StackPane {
                 turnX = false;
                 playable = GameState.getGameState().checkState();
                 isSelected = true;
+                try {
+                    Computer.playComputer();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 if (turnX)
@@ -53,6 +62,20 @@ public class Tile extends StackPane {
         });
     }
 
+    public void playComputer() throws InterruptedException {
+        System.out.println("Tile.playComputer");
+        if (computerTurn) {
+            if (turnX)
+                return;
+            Thread.sleep(200);
+            drawO();
+            turnX = true;
+            playable = GameState.getGameState().checkState();
+            isSelected = true;
+            computerTurn = false;
+        }
+    }
+
     public Game.type getValue() {
         return type;
     }
@@ -63,6 +86,26 @@ public class Tile extends StackPane {
 
     public double getCenterY() {
         return getTranslateY() + 90;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public static boolean isTurnX() {
+        return turnX;
+    }
+
+    public static boolean isComputerTurn() {
+        return computerTurn;
+    }
+
+    public static boolean isPlayable() {
+        return playable;
+    }
+
+    public static void setComputerTurn(boolean computerTurn) {
+        Tile.computerTurn = computerTurn;
     }
 
     private void drawX() {

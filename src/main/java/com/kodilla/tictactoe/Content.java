@@ -40,8 +40,13 @@ public class Content {
 
     public void playWinAnimation(Combo combo) {
         Line line = new Line();
+
         line.setStrokeWidth(10);
-        line.setStroke(Color.RED);
+        if (combo.getTile(0).getValue().equals(Game.type.X)) {
+            line.setStroke(Color.LIME);
+        } else if (combo.getTile(0).getValue().equals(Game.type.O)) {
+            line.setStroke(Color.RED);
+        }
         line.setStartX(combo.getTile(0).getCenterX());
         line.setStartY(combo.getTile(0).getCenterY());
         line.setEndX(combo.getTile(0).getCenterX());
