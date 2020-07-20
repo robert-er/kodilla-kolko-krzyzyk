@@ -18,7 +18,7 @@ public class Game extends Application {
     }
 
     enum type {
-        X, O
+        X, O, EMPTY
     }
 
     public static void main(String[] args) {

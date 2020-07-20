@@ -8,8 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.concurrent.TimeUnit;
-
 public class Tile extends StackPane {
 
     private static boolean turnX = true;
@@ -18,7 +16,9 @@ public class Tile extends StackPane {
     private boolean isSelected = false;
     private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x-small.png"));
     private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o-small.png"));
-    private Game.type type;
+    private Game.type value;
+
+    private int x, y;
 
     public Tile() {
         Rectangle border = new Rectangle(170, 180);
@@ -28,6 +28,7 @@ public class Tile extends StackPane {
 
         setAlignment(Pos.CENTER);
         getChildren().add(border);
+        value = Game.type.EMPTY;
         onClick();
     }
 
@@ -41,14 +42,12 @@ public class Tile extends StackPane {
                     return;
                 drawX();
                 turnX = false;
+                computerTurn = true;
                 playable = GameState.getGameState().checkState();
                 isSelected = true;
-                try {
-                    Computer.playComputer();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                   // Computer.playComputer();
+                Computer.playAdvancedAI();
+                  //  Computer.playSimpleAI();
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 if (turnX)
@@ -62,22 +61,28 @@ public class Tile extends StackPane {
         });
     }
 
-    public void playComputer() throws InterruptedException {
-        System.out.println("Tile.playComputer");
+    public void playComputer() {
+        System.out.println("Tile.playComputer. CenterX=" + getCenterX() + " CenterY=" + getCenterY()
+                + " x=" + x + " y=" + y);
+        System.out.println("turnX=" + turnX + " computerTurn=" + computerTurn);
         if (computerTurn) {
             if (turnX)
                 return;
-            Thread.sleep(200);
             drawO();
             turnX = true;
             playable = GameState.getGameState().checkState();
             isSelected = true;
             computerTurn = false;
+            System.out.println("turnX=" + turnX + " computerTurn=" + computerTurn);
         }
     }
 
     public Game.type getValue() {
-        return type;
+        return value;
+    }
+
+    public void setValue(Game.type value) {
+        this.value = value;
     }
 
     public double getCenterX() {
@@ -88,16 +93,24 @@ public class Tile extends StackPane {
         return getTranslateY() + 90;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public boolean isSelected() {
         return isSelected;
-    }
-
-    public static boolean isTurnX() {
-        return turnX;
-    }
-
-    public static boolean isComputerTurn() {
-        return computerTurn;
     }
 
     public static boolean isPlayable() {
@@ -110,11 +123,11 @@ public class Tile extends StackPane {
 
     private void drawX() {
         getChildren().add(imageX);
-        type = Game.type.X;
+        value = Game.type.X;
     }
 
     private void drawO() {
         getChildren().add(imageO);
-        type = Game.type.O;
+        value = Game.type.O;
     }
 }

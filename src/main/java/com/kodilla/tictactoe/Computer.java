@@ -1,13 +1,13 @@
 package com.kodilla.tictactoe;
 
+import java.util.List;
+
 public class Computer {
 
-    private static GameState gameState = GameState.getGameState();
-    private static Content content = gameState.getContent();
-    private static Tile[][] board = content.getBoard().getTiles();
-    private static int[][] prediction = new int[3][3];
+    private static Tile[][] board = GameState.getGameState().getContent().getBoard().getTiles();
+    private static List<Tile> availableTiles=  Minimax.getAvailableTiles();
 
-    public static void playComputer() throws InterruptedException {
+    public static void playComputer() {
         System.out.println("Computer.playComputer");
         Tile.setComputerTurn(true);
         if (Tile.isPlayable()) {
@@ -20,27 +20,34 @@ public class Computer {
                     }
                 }
             }
+        }
+    }
 
-//            for (Tile[] tile2 : board) {
-//                for (Tile tile3 : tile2) {
-//                    System.out.println(" all tiles vlues: " + tile3.getValue());
-//                }
-//            }
+    public static void playSimpleAI() {
 
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-
-                    if (board[j][i].getValue() == Game.type.X) {
-                        prediction[j][i] = -1;
-                    }
-                    if (board[j][i].getValue() == Game.type.O) {
-                        prediction[j][i] = 1;
-                    }
-                    System.out.println(" all tiles vlues: " + prediction[j][i]);
+        for (Tile tile : availableTiles) {
+            System.out.println("x= " + tile.getCenterX() + ", y=  " + tile.getCenterY() + " , value= " + tile.getValue());
+        }
+        System.out.println("----------");
+        if (Tile.isPlayable()) {
+            for (Tile tile : availableTiles) {
+                if (!tile.isSelected()) {
+                    System.out.println("tile value " + tile.getValue());
+                    tile.playComputer();
+                    break;
                 }
             }
         }
     }
+
+    public static void playAdvancedAI() {
+        if (Minimax.hasFreeTiles()) {
+            int result = Minimax.minimax(0, Game.type.O);
+            System.out.println("playAdvancedAI: result=" + result);
+            Minimax.getComputerMove().playComputer();
+        }
+    }
+
 
 
 }

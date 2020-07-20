@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CombosList {
+
     private final static List<Combo> combos = new ArrayList<>();
 
     private final Tile[][] board;
