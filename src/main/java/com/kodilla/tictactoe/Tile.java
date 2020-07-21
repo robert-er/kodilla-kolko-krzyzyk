@@ -10,6 +10,8 @@ import javafx.scene.shape.Rectangle;
 
 public class Tile extends StackPane {
 
+    private static boolean difficultyIsHard = false;
+    public static String difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
     private static boolean turnX = true;
     private static boolean computerTurn = false;
     private static boolean playable = true;
@@ -45,9 +47,12 @@ public class Tile extends StackPane {
                 computerTurn = true;
                 playable = GameState.getGameState().checkState();
                 isSelected = true;
-                   // Computer.playComputer();
-                Computer.playAdvancedAI();
-                  //  Computer.playSimpleAI();
+
+                if (difficultyIsHard) {
+                    Computer.playAdvancedAI();
+                } else {
+                    Computer.playSimpleAI();
+                }
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 if (turnX)
@@ -59,6 +64,20 @@ public class Tile extends StackPane {
             }
 
         });
+    }
+
+    public static void changeDifficulty() {
+        difficultyIsHard = !difficultyIsHard;
+        if (difficultyIsHard) {
+            difficulty = "POZIOM TRUDNO\u015aCI - TRUDNY";
+        } else {
+            difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
+        }
+        System.out.println("Tile.difficultyIsHard=" + difficultyIsHard + " " + difficulty);
+    }
+
+    public static String getDifficulty() {
+        return difficulty;
     }
 
     public void playComputer() {
