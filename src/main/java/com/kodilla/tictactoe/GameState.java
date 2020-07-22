@@ -13,6 +13,11 @@ public class GameState {
         return GAME_STATE;
     }
 
+    public static GameState newGame(Content content) {
+        GAME_STATE = new GameState(content);
+        return GAME_STATE;
+    }
+
     public static GameState getGameState() {
         return GAME_STATE;
     }

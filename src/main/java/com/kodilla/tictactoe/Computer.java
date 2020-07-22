@@ -48,6 +48,9 @@ public class Computer {
         }
     }
 
-
+    public static void setDefaultValues() {
+        board = GameState.getGameState().getContent().getBoard().getTiles();
+        availableTiles=  Minimax.getAvailableTiles();
+    }
 
 }

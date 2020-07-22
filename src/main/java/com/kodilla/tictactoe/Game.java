@@ -13,8 +13,10 @@ public class Game extends Application {
     private Scene menuScene = new Scene(menu.getRoot());
     private Scene gameScene = new Scene(content.getRoot());
 
-    private Button btnExitMenu= new Button("ZAMKNIJ MENU - BTN Z KLASY GAME ");
+    private Button btnNewGame = new Button("NOWA GRA");
     private Button btnChangeDifficulty = new Button(Tile.getDifficulty());
+    private Button btnExitMenu= new Button("ZAMKNIJ MENU - BTN Z KLASY GAME ");
+
     private Button btnBackToMenu = new Button("MENU - BTN Z KLASY GAME");
 
     @Override
@@ -23,10 +25,20 @@ public class Game extends Application {
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
 
-        btnExitMenu.setTranslateX(100);
-        btnExitMenu.setTranslateY(300);
-        btnExitMenu.setOnAction(e -> primaryStage.setScene(gameScene));
-        menu.getRoot().getChildren().add(btnExitMenu);
+        btnNewGame.setTranslateX(100);
+        btnNewGame.setTranslateY(100);
+        btnNewGame.setOnAction(e -> {
+            content = new Content();
+            GameState.newGame(content);
+            Tile.setDefaultValues();
+            CombosList.setDefaultValues();
+            Minimax.setDefaultValues();
+            Computer.setDefaultValues();
+            gameScene = new Scene(content.getRoot());
+            content.getRoot().getChildren().add(btnBackToMenu);
+            primaryStage.setScene(gameScene);
+        });
+        menu.getRoot().getChildren().add(btnNewGame);
 
         btnChangeDifficulty.setTranslateX(100);
         btnChangeDifficulty.setTranslateY(150);
@@ -35,6 +47,11 @@ public class Game extends Application {
             btnChangeDifficulty.setText(Tile.getDifficulty());
         });
         menu.getRoot().getChildren().add(btnChangeDifficulty);
+
+        btnExitMenu.setTranslateX(100);
+        btnExitMenu.setTranslateY(300);
+        btnExitMenu.setOnAction(e -> primaryStage.setScene(gameScene));
+        menu.getRoot().getChildren().add(btnExitMenu);
 
         btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
         content.getRoot().getChildren().add(btnBackToMenu);

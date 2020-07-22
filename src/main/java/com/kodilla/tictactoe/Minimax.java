@@ -97,4 +97,9 @@ public class Minimax {
         }
         return turn == Game.type.O ? max : min;
     }
+
+    public static void setDefaultValues() {
+        content = GameState.getGameState().getContent();
+        board = content.getBoard().getTiles();
+    }
 }

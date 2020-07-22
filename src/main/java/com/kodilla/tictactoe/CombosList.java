@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CombosList {
 
-    private final static List<Combo> combos = new ArrayList<>();
+    private static List<Combo> combos = new ArrayList<>();
 
     private final Tile[][] board;
 
@@ -26,6 +26,10 @@ public class CombosList {
         combos.add(new Combo(board[2][0], board[1][1], board[0][2]));
 
         return combos;
+    }
+
+    public static void setDefaultValues() {
+        combos = new ArrayList<>();
     }
 
 }

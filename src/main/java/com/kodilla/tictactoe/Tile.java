@@ -149,4 +149,10 @@ public class Tile extends StackPane {
         getChildren().add(imageO);
         value = Game.type.O;
     }
+
+    public static void setDefaultValues() {
+        turnX = true;
+        computerTurn = false;
+        playable = true;
+    }
 }
