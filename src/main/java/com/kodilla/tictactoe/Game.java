@@ -10,9 +10,6 @@ public class Game extends Application {
     private Content content = new Content();
     private Menu menu = new Menu();
 
-    private Stage menuStage = new Stage();
-    private Stage gameStage = new Stage();
-
     private Scene menuScene = new Scene(menu.getRoot());
     private Scene gameScene = new Scene(content.getRoot());
 
@@ -32,23 +29,6 @@ public class Game extends Application {
         content.getRoot().getChildren().add(btnBackToMenu);
         primaryStage.setScene(menuScene);
         primaryStage.show();
-        System.out.println("primaryStage.setScene(new Scene(menu.getRoot()));");
-
-//            primaryStage.setScene(new Scene(content.getRoot()));
-//            System.out.println("primaryStage.setScene(new Scene(content.getRoot()));");
-//            primaryStage.show();
-
-    }
-
-    public void newGame() {
-        GameState.init(content);
-        gameStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
-        gameStage.setResizable(false);
-        gameStage.getScene();
-        gameStage.close();
-        gameStage.setScene(new Scene(content.getRoot()));
-        gameStage.show();
-
     }
 
     enum type {
