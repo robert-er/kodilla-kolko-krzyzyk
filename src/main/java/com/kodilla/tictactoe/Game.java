@@ -14,6 +14,7 @@ public class Game extends Application {
     private Scene gameScene = new Scene(content.getRoot());
 
     private Button btnExitMenu= new Button("ZAMKNIJ MENU - BTN Z KLASY GAME ");
+    private Button btnChangeDifficulty = new Button(Tile.getDifficulty());
     private Button btnBackToMenu = new Button("MENU - BTN Z KLASY GAME");
 
     @Override
@@ -21,12 +22,23 @@ public class Game extends Application {
         GameState.init(content);
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
+
         btnExitMenu.setTranslateX(100);
         btnExitMenu.setTranslateY(300);
         btnExitMenu.setOnAction(e -> primaryStage.setScene(gameScene));
-        btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
         menu.getRoot().getChildren().add(btnExitMenu);
+
+        btnChangeDifficulty.setTranslateX(100);
+        btnChangeDifficulty.setTranslateY(150);
+        btnChangeDifficulty.setOnAction(e -> {
+            Tile.changeDifficulty();
+            btnChangeDifficulty.setText(Tile.getDifficulty());
+        });
+        menu.getRoot().getChildren().add(btnChangeDifficulty);
+
+        btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
         content.getRoot().getChildren().add(btnBackToMenu);
+
         primaryStage.setScene(menuScene);
         primaryStage.show();
     }

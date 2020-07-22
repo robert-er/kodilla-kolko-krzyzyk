@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 public class Tile extends StackPane {
 
     private static boolean difficultyIsHard = false;
-    public static String difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
+    private static String difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
     private static boolean turnX = true;
     private static boolean computerTurn = false;
     private static boolean playable = true;

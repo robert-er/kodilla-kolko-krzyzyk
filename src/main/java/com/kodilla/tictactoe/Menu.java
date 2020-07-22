@@ -26,7 +26,7 @@ public class Menu {
     private VBox menuBox = new VBox(-5);
     private Line line;
 
-    private static Label difficultyMenu = new Label(Tile.difficulty);
+    private static Label difficultyMenu = new Label(Tile.getDifficulty());
 
     public static void setDifficultyMenu(String labelName) {
         difficultyMenu.setText(labelName);
