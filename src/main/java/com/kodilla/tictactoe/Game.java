@@ -2,28 +2,37 @@ package com.kodilla.tictactoe;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 
-    private static Content content = new Content();
+    private Content content = new Content();
     private Menu menu = new Menu();
 
-    private static Stage menuStage = new Stage();
-    private static Stage gameStage = new Stage();
+    private Stage menuStage = new Stage();
+    private Stage gameStage = new Stage();
+
+    private Scene menuScene = new Scene(menu.getRoot());
+    private Scene gameScene = new Scene(content.getRoot());
+
+    private Button btnExitMenu= new Button("ZAMKNIJ MENU - BTN Z KLASY GAME ");
+    private Button btnBackToMenu = new Button("MENU - BTN Z KLASY GAME");
 
     @Override
     public void start(Stage primaryStage) {
         GameState.init(content);
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
-
-
-        primaryStage.setScene(new Scene(menu.getRoot()));
+        btnExitMenu.setTranslateX(100);
+        btnExitMenu.setTranslateY(300);
+        btnExitMenu.setOnAction(e -> primaryStage.setScene(gameScene));
+        btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
+        menu.getRoot().getChildren().add(btnExitMenu);
+        content.getRoot().getChildren().add(btnBackToMenu);
+        primaryStage.setScene(menuScene);
         primaryStage.show();
         System.out.println("primaryStage.setScene(new Scene(menu.getRoot()));");
-
-        refreshStage();
 
 //            primaryStage.setScene(new Scene(content.getRoot()));
 //            System.out.println("primaryStage.setScene(new Scene(content.getRoot()));");
@@ -31,7 +40,7 @@ public class Game extends Application {
 
     }
 
-    public static void newGame() {
+    public void newGame() {
         GameState.init(content);
         gameStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         gameStage.setResizable(false);
@@ -39,10 +48,6 @@ public class Game extends Application {
         gameStage.close();
         gameStage.setScene(new Scene(content.getRoot()));
         gameStage.show();
-
-    }
-
-    public static void refreshStage() {
 
     }
 

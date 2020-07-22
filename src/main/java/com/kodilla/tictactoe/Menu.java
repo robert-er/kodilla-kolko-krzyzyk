@@ -33,7 +33,7 @@ public class Menu {
     }
 
     private List<Pair<Label, Runnable>> menuData = Arrays.asList(
-            new Pair<Label, Runnable>(new Label("NOWA GRA"), Game::newGame),
+            new Pair<Label, Runnable>(new Label("NOWA GRA"), () -> {}),
             new Pair<Label, Runnable>(difficultyMenu, Tile::changeDifficulty),
             new Pair<Label, Runnable>(new Label("ZAPISZ GR\u0118"), () -> {}),
             new Pair<Label, Runnable>(new Label("WCZYTAJ GR\u0118"), () -> {}),
