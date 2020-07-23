@@ -9,7 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
-public class Content {
+import java.io.Serializable;
+
+public class Content implements Serializable {
     private Pane root = new Pane();
     private Board board = new Board();
 

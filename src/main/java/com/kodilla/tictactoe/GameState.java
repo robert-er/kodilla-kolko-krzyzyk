@@ -1,6 +1,8 @@
 package com.kodilla.tictactoe;
 
-public class GameState {
+import java.io.Serializable;
+
+public class GameState implements Serializable {
 
     public static GameState GAME_STATE;
 
@@ -22,6 +24,10 @@ public class GameState {
         return GAME_STATE;
     }
 
+    public static void setGameState(GameState gameState) {
+        GAME_STATE = gameState;
+    }
+
     private GameState(Content content) {
         this.content = content;
     }
@@ -30,6 +36,13 @@ public class GameState {
         for (Combo combo : new CombosList(content.getBoard().getTiles()).getCombos()) {
             if (combo.isComplete()) {
                 content.playWinAnimation(combo);
+                if (combo.getTile(0).getValue() == Game.type.X) {
+                    Scores.won();
+                }
+                if (combo.getTile(0).getValue() == Game.type.O) {
+                    Scores.lost();
+                }
+                System.out.println("won=" + Scores.getWonGames() + " lost=" + Scores.getLostGames());
                 return false;
             }
         }

@@ -20,9 +20,9 @@ public class MenuItem extends Pane {
     public MenuItem(String name) {
         Polygon bg = new Polygon(
                 0, 0,
-                300, 0,
-                315, 20,
-                300, 40,
+                330, 0,
+                345, 20,
+                330, 40,
                 0, 40
         );
         bg.setStroke(Color.color(1, 1, 1, 0.75));

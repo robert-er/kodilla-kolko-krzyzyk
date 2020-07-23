@@ -7,22 +7,6 @@ public class Computer {
     private static Tile[][] board = GameState.getGameState().getContent().getBoard().getTiles();
     private static List<Tile> availableTiles=  Minimax.getAvailableTiles();
 
-    public static void playComputer() {
-        System.out.println("Computer.playComputer");
-        Tile.setComputerTurn(true);
-        if (Tile.isPlayable()) {
-            for (Tile[] tile : board) {
-                for (Tile tile1 : tile) {
-                    if (!tile1.isSelected()) {
-                        System.out.println("tile value " + tile1.getValue());
-                        tile1.playComputer();
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     public static void playSimpleAI() {
 
         for (Tile tile : availableTiles) {

@@ -8,10 +8,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Tile extends StackPane {
+import java.io.Serializable;
+
+public class Tile extends StackPane implements Serializable {
 
     private static boolean difficultyIsHard = false;
-    private static String difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
+    private static String difficulty = "\u0141ATWY";
     private static boolean turnX = true;
     private static boolean computerTurn = false;
     private static boolean playable = true;
@@ -69,9 +71,9 @@ public class Tile extends StackPane {
     public static void changeDifficulty() {
         difficultyIsHard = !difficultyIsHard;
         if (difficultyIsHard) {
-            difficulty = "POZIOM TRUDNO\u015aCI - TRUDNY";
+            difficulty = "TRUDNY";
         } else {
-            difficulty = "POZIOM TRUDNO\u015aCI - \u0141ATWY";
+            difficulty = "\u0141ATWY";
         }
         System.out.println("Tile.difficultyIsHard=" + difficultyIsHard + " " + difficulty);
     }
