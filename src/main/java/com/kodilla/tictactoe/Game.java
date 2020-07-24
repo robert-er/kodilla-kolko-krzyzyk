@@ -89,7 +89,11 @@ public class Game extends Application {
         scores.addMenuData(new Pair<>(new Label("          STATYSTYKI"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("WYGRANE"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("PRZEGRANE"), () -> {}));
-        scores.addMenuData(new Pair<>(new Label("RESETUJ STATYSTYKI"), () -> {}));
+        scores.addMenuData(new Pair<>(new Label("RESETUJ STATYSTYKI"), () -> {
+            Scores.reset();
+            wonGames.setText(""+Scores.getWonGames());
+            lostGames.setText(""+Scores.getLostGames());
+        }));
         scores.addMenuData(new Pair<>(new Label(""), () -> {}));
         scores.addMenuData(new Pair<>(new Label(""), () -> {}));
         scores.addMenuData(new Pair<>(new Label("POWR\u00d3T DO MENU"), () -> primaryStage.setScene(menuScene)));

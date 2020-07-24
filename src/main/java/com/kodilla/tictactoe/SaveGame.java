@@ -1,25 +1,28 @@
 package com.kodilla.tictactoe;
 
 import java.io.*;
-import java.util.HashMap;
 
 public class SaveGame {
     private File savedGame = new File("save.txt");
 
-    private GameState gameState;
+    private Save save = new Save();
+    private Save load = new Save();
 
- //    Tile.setDefaultValues();
+    //    Tile.setDefaultValues();
    //         CombosList.setDefaultValues();
      //       Minimax.setDefaultValues();
        //     Computer.setDefaultValues();
 
     public void save() {
-        gameState = GameState.getGameState();
+            save.setScoresWonGames(Scores.getWonGames());
+            save.setScoresLostGames(Scores.getLostGames());
+
         try {
             ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedGame));
 
-            oos.writeObject(gameState);
-            System.out.println("Savegame - write gameState");
+            oos.writeObject(save);
+
+            System.out.println("Savegame - scores");
             oos.close();
             System.out.println("SaveGame - close");
         } catch (Exception e) {
@@ -30,13 +33,17 @@ public class SaveGame {
     public void load() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedGame));
-            Object readMap = ois.readObject();
-            if(readMap instanceof HashMap) {
-              //  map.putAll((HashMap) readMap);
+            Object readSave = ois.readObject();
+            if(readSave instanceof Save) {
+              load = (Save) readSave;
+                System.out.println("Loadgame - scores");
             }
             ois.close();
+            System.out.println("Loadgame - close");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Scores.setWonGames(load.getScoresWonGames());
+        Scores.setLostGames(load.getScoresLostGames());
     }
 }
