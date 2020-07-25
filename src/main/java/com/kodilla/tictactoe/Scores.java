@@ -1,6 +1,7 @@
 package com.kodilla.tictactoe;
 
 public class Scores {
+
     public static int wonGames;
     private static int lostGames;
 
@@ -32,4 +33,5 @@ public class Scores {
     public static void setLostGames(int lostGames) {
         Scores.lostGames = lostGames;
     }
+
 }

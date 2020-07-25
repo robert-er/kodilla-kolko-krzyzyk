@@ -8,9 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.io.Serializable;
-
-public class Tile extends StackPane implements Serializable {
+public class Tile extends StackPane {
 
     private static boolean difficultyIsHard = false;
     private static String difficulty = "\u0141ATWY";
@@ -48,7 +46,6 @@ public class Tile extends StackPane implements Serializable {
                 turnX = false;
                 computerTurn = true;
                 playable = GameState.getGameState().checkState();
-                isSelected = true;
 
                 if (difficultyIsHard) {
                     Computer.playAdvancedAI();
@@ -62,7 +59,6 @@ public class Tile extends StackPane implements Serializable {
                 drawO();
                 turnX = true;
                 playable = GameState.getGameState().checkState();
-                isSelected = true;
             }
 
         });
@@ -138,18 +134,20 @@ public class Tile extends StackPane implements Serializable {
         return playable;
     }
 
-    public static void setComputerTurn(boolean computerTurn) {
-        Tile.computerTurn = computerTurn;
+    public static void setPlayable(boolean playable) {
+        Tile.playable = playable;
     }
 
-    private void drawX() {
+    public void drawX() {
         getChildren().add(imageX);
         value = Game.type.X;
+        isSelected = true;
     }
 
-    private void drawO() {
+    public void drawO() {
         getChildren().add(imageO);
         value = Game.type.O;
+        isSelected = true;
     }
 
     public static void setDefaultValues() {
@@ -157,4 +155,5 @@ public class Tile extends StackPane implements Serializable {
         computerTurn = false;
         playable = true;
     }
+
 }

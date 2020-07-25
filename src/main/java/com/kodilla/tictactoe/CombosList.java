@@ -14,6 +14,7 @@ public class CombosList {
     }
 
     public List<Combo> getCombos() {
+        //horizontal
         for (int y = 0; y < 3; y++) {
             combos.add(new Combo(board[0][y], board[1][y], board[2][y]));
         }

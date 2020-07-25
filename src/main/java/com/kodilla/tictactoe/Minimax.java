@@ -57,8 +57,6 @@ public class Minimax {
         if (availableTiles.isEmpty())
             return 0;
 
-     //   int min = Integer.MAX_VALUE;
-     //   int max = Integer.MIN_VALUE;
         int min = 10;
         int max = -10;
 
@@ -102,4 +100,5 @@ public class Minimax {
         content = GameState.getGameState().getContent();
         board = content.getBoard().getTiles();
     }
+
 }

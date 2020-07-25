@@ -3,19 +3,15 @@ package com.kodilla.tictactoe;
 import java.io.*;
 
 public class SaveGame {
-    private File savedGame = new File("save.txt");
+    private File savedGame = new File("src/main/resources/savegame.txt");
 
     private Save save = new Save();
-    private Save load = new Save();
-
-    //    Tile.setDefaultValues();
-   //         CombosList.setDefaultValues();
-     //       Minimax.setDefaultValues();
-       //     Computer.setDefaultValues();
+    private static Save load = new Save();
 
     public void save() {
             save.setScoresWonGames(Scores.getWonGames());
             save.setScoresLostGames(Scores.getLostGames());
+            save.setBoard();
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedGame));
@@ -45,5 +41,18 @@ public class SaveGame {
         }
         Scores.setWonGames(load.getScoresWonGames());
         Scores.setLostGames(load.getScoresLostGames());
+
+        Game.type[][] gameTypeLoad =  load.getBoard();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.println("SaveGame.load: j=" + j + " i=" + i + " type=" + gameTypeLoad[j][i]);
+
+            }
+        }
     }
+
+    public static Save getLoad() {
+        return load;
+    }
+
 }

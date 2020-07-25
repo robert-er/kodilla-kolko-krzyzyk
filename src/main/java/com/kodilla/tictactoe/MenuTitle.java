@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MenuTitle extends Pane {
+
     private Text text;
 
     public MenuTitle(String name) {
@@ -16,6 +17,7 @@ public class MenuTitle extends Pane {
         for (char c : name.toCharArray()) {
             spread += c + " ";
         }
+
         Polygon bg = new Polygon(
                 0, 0,
                 540, 0,
@@ -27,6 +29,7 @@ public class MenuTitle extends Pane {
         bg.setEffect(new GaussianBlur());
         bg.setTranslateX(0);
         bg.setTranslateY(-40);
+
         text = new Text(spread);
         text.setFont(Font.font("Verdana", 44));
         text.setFill(Color.WHITE);
@@ -39,7 +42,4 @@ public class MenuTitle extends Pane {
         return text.getLayoutBounds().getWidth();
     }
 
-    public double getTitleHeight() {
-        return text.getLayoutBounds().getHeight();
-    }
 }

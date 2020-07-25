@@ -1,31 +1,23 @@
 package com.kodilla.tictactoe;
 
-import java.io.Serializable;
+public class GameState {
 
-public class GameState implements Serializable {
-
-    public static GameState GAME_STATE;
+    public static GameState gameState;
 
     private Content content;
 
-    public static GameState init(Content content) {
-        if (GAME_STATE == null) {
-            GAME_STATE = new GameState(content);
+    public static void init(Content content) {
+        if (gameState == null) {
+            gameState = new GameState(content);
         }
-        return GAME_STATE;
     }
 
-    public static GameState newGame(Content content) {
-        GAME_STATE = new GameState(content);
-        return GAME_STATE;
+    public static void newGame(Content content) {
+        gameState = new GameState(content);
     }
 
     public static GameState getGameState() {
-        return GAME_STATE;
-    }
-
-    public static void setGameState(GameState gameState) {
-        GAME_STATE = gameState;
+        return gameState;
     }
 
     private GameState(Content content) {
@@ -52,5 +44,6 @@ public class GameState implements Serializable {
     public Content getContent() {
         return content;
     }
+
 }
 

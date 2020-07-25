@@ -31,27 +31,9 @@ public class Game extends Application {
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
 
-        Text wonGames = new Text(""+Scores.getWonGames());
-        wonGames.setTranslateX(336);
-        wonGames.setTranslateY(187);
-        wonGames.setFont(Font.font("Verdana", 20));
-        wonGames.setFill(Color.WHITE);
-
-        Text lostGames = new Text(""+Scores.getLostGames());
-        lostGames.setTranslateX(336);
-        lostGames.setTranslateY(247);
-        lostGames.setFont(Font.font("Verdana", 20));
-        lostGames.setFill(Color.WHITE);
-
+        // MAIN MENU
         menu.addMenuData(new Pair<>(new Label("NOWA GRA"), () -> {
-            content = new Content();
-            GameState.newGame(content);
-            Tile.setDefaultValues();
-            CombosList.setDefaultValues();
-            Minimax.setDefaultValues();
-            Computer.setDefaultValues();
-            gameScene = new Scene(content.getRoot());
-            content.getRoot().getChildren().add(btnBackToMenu);
+            createNewContent();
             primaryStage.setScene(gameScene);
         }
         ));
@@ -71,7 +53,23 @@ public class Game extends Application {
         }));
         menu.addMenuData(new Pair<>(new Label("WCZYTAJ GR\u0118"), () -> {
             saveGame.load();
+            createNewContent();
+            content.restoreBoardAfterLoadGame();
+            Tile.setPlayable(GameState.getGameState().checkState());
         }));
+
+        Text wonGames = new Text(""+Scores.getWonGames());
+        wonGames.setTranslateX(336);
+        wonGames.setTranslateY(187);
+        wonGames.setFont(Font.font("Verdana", 20));
+        wonGames.setFill(Color.WHITE);
+
+        Text lostGames = new Text(""+Scores.getLostGames());
+        lostGames.setTranslateX(336);
+        lostGames.setTranslateY(247);
+        lostGames.setFont(Font.font("Verdana", 20));
+        lostGames.setFill(Color.WHITE);
+
         menu.addMenuData(new Pair<>(new Label("STATYSTYKI"), () -> {
             wonGames.setText(""+Scores.getWonGames());
             lostGames.setText(""+Scores.getLostGames());
@@ -86,6 +84,7 @@ public class Game extends Application {
         btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
         content.getRoot().getChildren().add(btnBackToMenu);
 
+        // SCORES MENU
         scores.addMenuData(new Pair<>(new Label("          STATYSTYKI"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("WYGRANE"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("PRZEGRANE"), () -> {}));
@@ -105,6 +104,17 @@ public class Game extends Application {
         primaryStage.show();
     }
 
+    private void createNewContent() {
+        content = new Content();
+        GameState.newGame(content);
+        Tile.setDefaultValues();
+        CombosList.setDefaultValues();
+        Minimax.setDefaultValues();
+        Computer.setDefaultValues();
+        gameScene = new Scene(content.getRoot());
+        content.getRoot().getChildren().add(btnBackToMenu);
+    }
+
     enum type {
         X, O, EMPTY
     }
@@ -112,4 +122,5 @@ public class Game extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

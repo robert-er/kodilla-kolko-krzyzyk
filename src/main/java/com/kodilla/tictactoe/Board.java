@@ -1,13 +1,15 @@
 package com.kodilla.tictactoe;
 
-import java.io.Serializable;
-
-public class Board implements Serializable {
+public class Board {
 
     Tile[][] board = new Tile[3][3];
 
     public Tile[][] getTiles() {
         return board;
+    }
+
+    public Tile getTile(int j, int i) {
+        return board[j][i];
     }
 
     public void createBoard() {

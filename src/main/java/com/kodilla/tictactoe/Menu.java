@@ -58,6 +58,7 @@ public class Menu {
         line.setStrokeWidth(5);
         line.setStroke(Color.WHITE);
         line.setEffect(new DropShadow(5, Color.BLACK));
+
         Timeline timeLine = new Timeline();
         timeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(2),
                 new KeyValue(line.endXProperty(), line.getStartX()),
@@ -78,7 +79,6 @@ public class Menu {
                 item.setTranslateX(0);
                 Rectangle clip = new Rectangle(400, 50);
                 clip.translateXProperty().bind(item.translateXProperty().negate());
-
                 item.setClip(clip);
                 menuBox.getChildren().addAll(item);
             } else {

@@ -1,6 +1,7 @@
 package com.kodilla.tictactoe;
 
 public class Combo {
+
     private Tile[] tiles;
 
     public Combo(Tile... tiles) {
@@ -17,4 +18,5 @@ public class Combo {
     public Tile getTile(int i) {
         return tiles[i];
     }
+
 }

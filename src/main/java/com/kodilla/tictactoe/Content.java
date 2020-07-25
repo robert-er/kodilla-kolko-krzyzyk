@@ -9,9 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
-import java.io.Serializable;
+public class Content {
 
-public class Content implements Serializable {
     private Pane root = new Pane();
     private Board board = new Board();
 
@@ -36,19 +35,21 @@ public class Content implements Serializable {
         BackgroundImage backgroundImage = new BackgroundImage(imageBg, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
+
         root.setPrefSize(600, 600);
         root.setBackground(background);
     }
 
     public void playWinAnimation(Combo combo) {
         Line line = new Line();
-
         line.setStrokeWidth(10);
+
         if (combo.getTile(0).getValue().equals(Game.type.X)) {
             line.setStroke(Color.LIME);
         } else if (combo.getTile(0).getValue().equals(Game.type.O)) {
             line.setStroke(Color.RED);
         }
+
         line.setStartX(combo.getTile(0).getCenterX());
         line.setStartY(combo.getTile(0).getCenterY());
         line.setEndX(combo.getTile(0).getCenterX());
@@ -64,4 +65,23 @@ public class Content implements Serializable {
     public Board getBoard() {
         return board;
     }
+
+    public void restoreBoardAfterLoadGame() {
+        Save load = SaveGame.getLoad();
+        Game.type[][] boardOfTypes = load.getBoard();
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (boardOfTypes[j][i] == Game.type.O) {
+                    board.getTile(j,i).drawO();
+                    System.out.println("Content.restore.drawO. j=" + j + " i=" + i);
+                }
+                if (boardOfTypes[j][i] == Game.type.X) {
+                    board.getTile(j,i).drawX();
+                    System.out.println("Content.restore.drawX. j=" + j + " i=" + i);
+                }
+            }
+        }
+    }
+
 }
