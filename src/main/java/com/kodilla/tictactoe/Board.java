@@ -2,7 +2,7 @@ package com.kodilla.tictactoe;
 
 public class Board {
 
-    Tile[][] board = new Tile[3][3];
+    private Tile[][] board = new Tile[3][3];
 
     public Tile[][] getTiles() {
         return board;

@@ -44,11 +44,7 @@ public class Content {
         Line line = new Line();
         line.setStrokeWidth(10);
 
-        if (combo.getTile(0).getValue().equals(Game.type.X)) {
-            line.setStroke(Color.LIME);
-        } else if (combo.getTile(0).getValue().equals(Game.type.O)) {
-            line.setStroke(Color.RED);
-        }
+        line.setStroke(calculateStrokeColor(combo));
 
         line.setStartX(combo.getTile(0).getCenterX());
         line.setStartY(combo.getTile(0).getCenterY());
@@ -62,26 +58,36 @@ public class Content {
         root.getChildren().add(line);
     }
 
+    private Color calculateStrokeColor(Combo combo) {
+        if (combo.getTile(0).getValue().equals(Game.Type.X)) {
+            return Color.LIME;
+        } else if (combo.getTile(0).getValue().equals(Game.Type.O)) {
+            return Color.RED;
+        }
+        return Color.BLACK;
+    }
+
     public Board getBoard() {
         return board;
     }
 
     public void restoreBoardAfterLoadGame() {
         Save load = SaveGame.getLoad();
-        Game.type[][] boardOfTypes = load.getBoard();
+        Game.Type[][] boardOfTypes = load.getBoard();
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (boardOfTypes[j][i] == Game.type.O) {
+                if (boardOfTypes[j][i] == Game.Type.O) {
                     board.getTile(j,i).drawO();
                     System.out.println("Content.restore.drawO. j=" + j + " i=" + i);
                 }
-                if (boardOfTypes[j][i] == Game.type.X) {
+                if (boardOfTypes[j][i] == Game.Type.X) {
                     board.getTile(j,i).drawX();
                     System.out.println("Content.restore.drawX. j=" + j + " i=" + i);
                 }
             }
         }
+        System.out.println("Content.restore - Scores.drawGames=" + Scores.getDrawGames());
     }
 
 }

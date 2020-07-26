@@ -11,6 +11,7 @@ public class SaveGame {
     public void save() {
             save.setScoresWonGames(Scores.getWonGames());
             save.setScoresLostGames(Scores.getLostGames());
+            save.setScoresDrawGames(Scores.getDrawGames());
             save.setBoard();
 
         try {
@@ -41,14 +42,18 @@ public class SaveGame {
         }
         Scores.setWonGames(load.getScoresWonGames());
         Scores.setLostGames(load.getScoresLostGames());
+        Scores.setDrawGames(load.getScoresDrawGames());
 
-        Game.type[][] gameTypeLoad =  load.getBoard();
+        Game.Type[][] gameTypeLoad =  load.getBoard();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.println("SaveGame.load: j=" + j + " i=" + i + " type=" + gameTypeLoad[j][i]);
 
             }
         }
+        System.out.println("wonGames=" + load.getScoresWonGames() + " lostGames=" + load.getScoresLostGames()
+        + " drawGames=" + load.getScoresDrawGames());
+        System.out.println("Scores.drawGames= " + Scores.getDrawGames());
     }
 
     public static Save getLoad() {

@@ -18,7 +18,7 @@ public class Tile extends StackPane {
     private boolean isSelected = false;
     private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x-small.png"));
     private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o-small.png"));
-    private Game.type value;
+    private Game.Type value;
 
     private int x, y;
 
@@ -30,7 +30,7 @@ public class Tile extends StackPane {
 
         setAlignment(Pos.CENTER);
         getChildren().add(border);
-        value = Game.type.EMPTY;
+        value = Game.Type.EMPTY;
         onClick();
     }
 
@@ -94,11 +94,11 @@ public class Tile extends StackPane {
         }
     }
 
-    public Game.type getValue() {
+    public Game.Type getValue() {
         return value;
     }
 
-    public void setValue(Game.type value) {
+    public void setValue(Game.Type value) {
         this.value = value;
     }
 
@@ -140,13 +140,13 @@ public class Tile extends StackPane {
 
     public void drawX() {
         getChildren().add(imageX);
-        value = Game.type.X;
+        value = Game.Type.X;
         isSelected = true;
     }
 
     public void drawO() {
         getChildren().add(imageO);
-        value = Game.type.O;
+        value = Game.Type.O;
         isSelected = true;
     }
 

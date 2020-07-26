@@ -9,8 +9,9 @@ public class Combo {
     }
 
     public boolean isComplete() {
-        if (!(tiles[0].getValue() == Game.type.O) && !(tiles[0].getValue() == Game.type.X))
+        if (!(tiles[0].getValue() == Game.Type.O) && !(tiles[0].getValue() == Game.Type.X)) {
             return false;
+        }
         return tiles[0].getValue().equals(tiles[1].getValue())
                 && tiles[0].getValue().equals(tiles[2].getValue());
     }

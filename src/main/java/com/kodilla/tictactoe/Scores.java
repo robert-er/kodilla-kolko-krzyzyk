@@ -4,6 +4,7 @@ public class Scores {
 
     public static int wonGames;
     private static int lostGames;
+    private static int drawGames;
 
     public static void won() {
         wonGames++;
@@ -13,9 +14,14 @@ public class Scores {
         lostGames++;
     }
 
+    public static void draw() {
+        drawGames++;
+    }
+
     public static void reset() {
         wonGames = 0;
         lostGames = 0;
+        drawGames = 0;
     }
 
     public static int getWonGames() {
@@ -26,6 +32,10 @@ public class Scores {
         return lostGames;
     }
 
+    public static int getDrawGames() {
+        return drawGames;
+    }
+
     public static void setWonGames(int wonGames) {
         Scores.wonGames = wonGames;
     }
@@ -34,4 +44,7 @@ public class Scores {
         Scores.lostGames = lostGames;
     }
 
+    public static void setDrawGames(int drawGames) {
+        Scores.drawGames = drawGames;
+    }
 }

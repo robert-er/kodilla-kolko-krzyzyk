@@ -22,8 +22,6 @@ public class Menu {
     private static final int HEIGHT = 600;
 
     private Pane root = new Pane();
-    private VBox menuBox = new VBox(-5);
-    private Line line;
 
     private List<Pair<Label, Runnable>> menuData = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class Menu {
     }
 
     private void addLine(double x, double y) {
-        line = new Line(x, y, x, y);
+        Line line = new Line(x, y, x, y);
         line.setStrokeWidth(5);
         line.setStroke(Color.WHITE);
         line.setEffect(new DropShadow(5, Color.BLACK));
@@ -69,6 +67,7 @@ public class Menu {
     }
 
     private void addMenu(double x, double y) {
+        VBox menuBox = new VBox(-5);
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
         menuData.forEach(data -> {

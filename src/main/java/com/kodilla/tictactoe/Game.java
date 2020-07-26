@@ -56,6 +56,15 @@ public class Game extends Application {
             createNewContent();
             content.restoreBoardAfterLoadGame();
             Tile.setPlayable(GameState.getGameState().checkState());
+            if (!Minimax.hasFreeTiles()) {
+                Scores.setDrawGames(Scores.getDrawGames() - 3);
+            }
+            if (!GameState.getGameState().checkState() && GameState.isGameWasWon()) {
+                Scores.setWonGames(Scores.getWonGames() - 3);
+            }
+            if (!GameState.getGameState().checkState() && GameState.isGameWasLost()) {
+                Scores.setLostGames(Scores.getLostGames() - 3);
+            }
         }));
 
         Text wonGames = new Text(""+Scores.getWonGames());
@@ -70,9 +79,18 @@ public class Game extends Application {
         lostGames.setFont(Font.font("Verdana", 20));
         lostGames.setFill(Color.WHITE);
 
+        Text drawGames = new Text(""+Scores.getDrawGames());
+        drawGames.setTranslateX(336);
+        drawGames.setTranslateY(307);
+        drawGames.setFont(Font.font("Verdana", 20));
+        drawGames.setFill(Color.WHITE);
+
         menu.addMenuData(new Pair<>(new Label("STATYSTYKI"), () -> {
             wonGames.setText(""+Scores.getWonGames());
             lostGames.setText(""+Scores.getLostGames());
+            drawGames.setText(""+Scores.getDrawGames());
+            System.out.println("Game.start - won/lost/draw " + Scores.getWonGames() + "/"
+                + Scores.getLostGames() + "/" + Scores.getDrawGames());
             primaryStage.setScene(scoreScene);
         }));
         menu.addMenuData(new Pair<>(new Label("ZAMKNIJ MENU"), () -> primaryStage.setScene(gameScene)));
@@ -88,17 +106,19 @@ public class Game extends Application {
         scores.addMenuData(new Pair<>(new Label("          STATYSTYKI"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("WYGRANE"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("PRZEGRANE"), () -> {}));
+        scores.addMenuData(new Pair<>(new Label("REMISY"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("RESETUJ STATYSTYKI"), () -> {
             Scores.reset();
             wonGames.setText(""+Scores.getWonGames());
             lostGames.setText(""+Scores.getLostGames());
+            drawGames.setText(""+Scores.getDrawGames());
         }));
-        scores.addMenuData(new Pair<>(new Label(""), () -> {}));
+
         scores.addMenuData(new Pair<>(new Label(""), () -> {}));
         scores.addMenuData(new Pair<>(new Label("POWR\u00d3T DO MENU"), () -> primaryStage.setScene(menuScene)));
 
         scores.generate();
-        scores.getRoot().getChildren().addAll(wonGames, lostGames);
+        scores.getRoot().getChildren().addAll(wonGames, lostGames, drawGames);
 
         primaryStage.setScene(menuScene);
         primaryStage.show();
@@ -107,6 +127,7 @@ public class Game extends Application {
     private void createNewContent() {
         content = new Content();
         GameState.newGame(content);
+        GameState.setGameStatusFlags(false, false, false);
         Tile.setDefaultValues();
         CombosList.setDefaultValues();
         Minimax.setDefaultValues();
@@ -115,7 +136,7 @@ public class Game extends Application {
         content.getRoot().getChildren().add(btnBackToMenu);
     }
 
-    enum type {
+    enum Type {
         X, O, EMPTY
     }
 

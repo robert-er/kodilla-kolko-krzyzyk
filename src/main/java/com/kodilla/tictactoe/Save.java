@@ -6,9 +6,10 @@ public class Save implements Serializable {
 
     private int scoresWonGames;
     private int scoresLostGames;
-    private Game.type[][] board = new Game.type[3][3];
+    private int scoresDrawGames;
+    private Game.Type[][] board = new Game.Type[3][3];
 
-    public Game.type[][] getBoard() {
+    public Game.Type[][] getBoard() {
         return board;
     }
 
@@ -35,5 +36,13 @@ public class Save implements Serializable {
 
     public void setScoresLostGames(int scoresLostGames) {
         this.scoresLostGames = scoresLostGames;
+    }
+
+    public int getScoresDrawGames() {
+        return scoresDrawGames;
+    }
+
+    public void setScoresDrawGames(int scoresDrawGames) {
+        this.scoresDrawGames = scoresDrawGames;
     }
 }

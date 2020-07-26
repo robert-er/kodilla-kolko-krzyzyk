@@ -24,14 +24,14 @@ public class Computer {
 
     public static void playAdvancedAI() {
         if (Minimax.hasFreeTiles()) {
-            int result = Minimax.minimax(0, Game.type.O);
+            int result = Minimax.minimax(0, Game.Type.O);
             System.out.println("Computer.playAdvancedAI: result=" + result);
             Minimax.getComputerMove().playComputer();
         }
     }
 
     public static void setDefaultValues() {
-        availableTiles=  Minimax.getAvailableTiles();
+        availableTiles =  Minimax.getAvailableTiles();
     }
 
 }
