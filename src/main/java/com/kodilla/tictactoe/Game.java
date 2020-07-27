@@ -31,18 +31,37 @@ public class Game extends Application {
         primaryStage.setTitle("K\u00f3\u0142ko i krzy\u017cyk");
         primaryStage.setResizable(false);
 
+        Text wonGames = new Text(""+Scores.getWonGames());
+        formatMenuText(wonGames, 336, 187);
+
+        Text lostGames = new Text(""+Scores.getLostGames());
+        formatMenuText(lostGames, 336, 247);
+
+        Text drawGames = new Text(""+Scores.getDrawGames());
+        formatMenuText(drawGames, 336, 307);
+
         // MAIN MENU
+        createMainMenu(primaryStage,wonGames, lostGames, drawGames);
+
+        btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
+        content.getRoot().getChildren().add(btnBackToMenu);
+
+        // SCORES MENU
+        createScoresMenu(primaryStage, wonGames, lostGames, drawGames);
+
+        primaryStage.setScene(menuScene);
+        primaryStage.show();
+    }
+
+    private void createMainMenu(Stage primaryStage, Text wonGames, Text lostGames, Text drawGames) {
+        Text difficultyLevel = new Text(Tile.getDifficulty());
+        formatMenuText(difficultyLevel, 336, 187);
+
         menu.addMenuData(new Pair<>(new Label("NOWA GRA"), () -> {
             createNewContent();
             primaryStage.setScene(gameScene);
         }
         ));
-
-        Text difficultyLevel = new Text(Tile.getDifficulty());
-        difficultyLevel.setTranslateX(336);
-        difficultyLevel.setTranslateY(187);
-        difficultyLevel.setFont(Font.font("Verdana", 20));
-        difficultyLevel.setFill(Color.WHITE);
 
         menu.addMenuData(new Pair<>(new Label("POZIOM TRUDNO\u015aCI"), () -> {
             Tile.changeDifficulty();
@@ -67,30 +86,12 @@ public class Game extends Application {
             }
         }));
 
-        Text wonGames = new Text(""+Scores.getWonGames());
-        wonGames.setTranslateX(336);
-        wonGames.setTranslateY(187);
-        wonGames.setFont(Font.font("Verdana", 20));
-        wonGames.setFill(Color.WHITE);
-
-        Text lostGames = new Text(""+Scores.getLostGames());
-        lostGames.setTranslateX(336);
-        lostGames.setTranslateY(247);
-        lostGames.setFont(Font.font("Verdana", 20));
-        lostGames.setFill(Color.WHITE);
-
-        Text drawGames = new Text(""+Scores.getDrawGames());
-        drawGames.setTranslateX(336);
-        drawGames.setTranslateY(307);
-        drawGames.setFont(Font.font("Verdana", 20));
-        drawGames.setFill(Color.WHITE);
-
         menu.addMenuData(new Pair<>(new Label("STATYSTYKI"), () -> {
             wonGames.setText(""+Scores.getWonGames());
             lostGames.setText(""+Scores.getLostGames());
             drawGames.setText(""+Scores.getDrawGames());
             System.out.println("Game.start - won/lost/draw " + Scores.getWonGames() + "/"
-                + Scores.getLostGames() + "/" + Scores.getDrawGames());
+                    + Scores.getLostGames() + "/" + Scores.getDrawGames());
             primaryStage.setScene(scoreScene);
         }));
         menu.addMenuData(new Pair<>(new Label("ZAMKNIJ MENU"), () -> primaryStage.setScene(gameScene)));
@@ -98,11 +99,9 @@ public class Game extends Application {
 
         menu.generate();
         menu.getRoot().getChildren().add(difficultyLevel);
+    }
 
-        btnBackToMenu.setOnAction(e -> primaryStage.setScene(menuScene));
-        content.getRoot().getChildren().add(btnBackToMenu);
-
-        // SCORES MENU
+    private void createScoresMenu(Stage primaryStage, Text wonGames, Text lostGames, Text drawGames) {
         scores.addMenuData(new Pair<>(new Label("          STATYSTYKI"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("WYGRANE"), () -> {}));
         scores.addMenuData(new Pair<>(new Label("PRZEGRANE"), () -> {}));
@@ -119,9 +118,6 @@ public class Game extends Application {
 
         scores.generate();
         scores.getRoot().getChildren().addAll(wonGames, lostGames, drawGames);
-
-        primaryStage.setScene(menuScene);
-        primaryStage.show();
     }
 
     private void createNewContent() {
@@ -134,6 +130,13 @@ public class Game extends Application {
         Computer.setDefaultValues();
         gameScene = new Scene(content.getRoot());
         content.getRoot().getChildren().add(btnBackToMenu);
+    }
+
+    private void formatMenuText(Text text, int x, int y) {
+        text.setTranslateX(x);
+        text.setTranslateY(y);
+        text.setFont(Font.font("Verdana", 20));
+        text.setFill(Color.WHITE);
     }
 
     enum Type {
